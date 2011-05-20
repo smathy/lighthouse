@@ -14,5 +14,13 @@ module Lighthouse
       options[:project_id] ||= project_id
       Ticket.find(:all, :params => options.merge(prefix_options).update(:q => %{tagged:"#{self}"}))
     end
+
+    def fix_chars!
+      downcase!
+      gsub! /(^')|('$)/, ''
+      gsub! /[^a-z0-9 \-_@\!']/, ''
+      gsub! /^[^a-z0-9!#.:@_]*[^a-z0-9!#.:@_'-]/, ''
+      strip!
+    end
   end
 end

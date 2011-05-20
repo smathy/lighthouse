@@ -85,10 +85,7 @@ module Lighthouse
           tag.collect! do |t|
             unless tag.blank?
               t = Tag.new(t,prefix_options[:project_id])
-              t.downcase!
-              t.gsub! /(^')|('$)/, ''
-              t.gsub! /[^a-z0-9 \-_@\!']/, ''
-              t.strip!
+              t.fix_chars!
               t.prefix_options = prefix_options
               t
             end
